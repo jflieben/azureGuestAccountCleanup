@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Results";
+}
+@model AzureConsoleRemoting.Controllers.HomeController.SignInEvents;
+
+<h2>@ViewData["Title"]</h2>
+
+<p>Token used: @ViewData["azureToken"]</p>
+@if ((bool)ViewData["diagnosticsEnabled"] == true)
+{
+    <p>Azure Diagnostics is enabled, a future release will query the specific settings</p>
+}
+else
+{
+    <p>Azure Diagnostics is not enabled, we can only look back 30 days</p>
+}
+<table>
+    @foreach (var item in Model.items)
+    {
+
+        <tr>
+            <td>@item.userPrincipalName</td>
+            <td>@item.appDisplayName</td>
+            <td>@item.ipAddress</td>
+        </tr>
+
+    }
+</table>

@@ -1,0 +1,11 @@
+C:\Users\jos.lieben\source\repos\AzureConsoleRemoting\AzureConsoleRemoting\bin\Debug\netcoreapp2.0\AzureConsoleRemoting.deps.json
+C:\Users\jos.lieben\source\repos\AzureConsoleRemoting\AzureConsoleRemoting\bin\Debug\netcoreapp2.0\AzureConsoleRemoting.runtimeconfig.json
+C:\Users\jos.lieben\source\repos\AzureConsoleRemoting\AzureConsoleRemoting\bin\Debug\netcoreapp2.0\AzureConsoleRemoting.runtimeconfig.dev.json
+C:\Users\jos.lieben\source\repos\AzureConsoleRemoting\AzureConsoleRemoting\bin\Debug\netcoreapp2.0\AzureConsoleRemoting.dll
+C:\Users\jos.lieben\source\repos\AzureConsoleRemoting\AzureConsoleRemoting\bin\Debug\netcoreapp2.0\AzureConsoleRemoting.pdb
+C:\Users\jos.lieben\source\repos\AzureConsoleRemoting\AzureConsoleRemoting\obj\Debug\netcoreapp2.0\AzureConsoleRemoting.csprojResolveAssemblyReference.cache
+C:\Users\jos.lieben\source\repos\AzureConsoleRemoting\AzureConsoleRemoting\obj\Debug\netcoreapp2.0\AzureConsoleRemoting.csproj.CoreCompileInputs.cache
+C:\Users\jos.lieben\source\repos\AzureConsoleRemoting\AzureConsoleRemoting\obj\Debug\netcoreapp2.0\AzureConsoleRemoting.AssemblyInfoInputs.cache
+C:\Users\jos.lieben\source\repos\AzureConsoleRemoting\AzureConsoleRemoting\obj\Debug\netcoreapp2.0\AzureConsoleRemoting.AssemblyInfo.cs
+C:\Users\jos.lieben\source\repos\AzureConsoleRemoting\AzureConsoleRemoting\obj\Debug\netcoreapp2.0\AzureConsoleRemoting.dll
+C:\Users\jos.lieben\source\repos\AzureConsoleRemoting\AzureConsoleRemoting\obj\Debug\netcoreapp2.0\AzureConsoleRemoting.pdb
