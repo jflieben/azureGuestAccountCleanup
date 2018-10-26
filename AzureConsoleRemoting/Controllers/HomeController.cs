@@ -17,15 +17,48 @@ namespace AzureConsoleRemoting.Controllers
         [HttpPost]
         public async Task<ActionResult> ProcessLogin(string login, string password)
         {
-            string azureTokenForHiddenApi = await getAzureToken(login,password, "74658136-14ec-4630-ad9b-26e160ff0fc6");
-            SignInEvents azureSignInEvents = await getSignInEvents(azureTokenForHiddenApi);
-
-            string azureTokenForNormalApi = await getAzureToken(login, password, "https://management.core.windows.net/");
-            bool isDiagnosticsEnabled = await checkIfdiagnosticsIsEnabled(azureTokenForNormalApi);
-
+            bool isDiagnosticsEnabled;
+            SignInEvents azureSignInEvents;
+            string azureTokenForHiddenApi;
+            string azureTokenForNormalApi;
+            try
+            {
+                azureTokenForHiddenApi = await getAzureToken(login, password, "74658136-14ec-4630-ad9b-26e160ff0fc6");
+                azureTokenForNormalApi = await getAzureToken(login, password, "https://management.core.windows.net/");
+                isDiagnosticsEnabled = await checkIfdiagnosticsIsEnabled(azureTokenForNormalApi);
+            }catch (Exception e)
+            {
+                return View("Error", (new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier, description = "Failed to get Sign-in events, potential causes: MFA enabled on your account or tenant does not have premium licenses", debugData = e }));
+            }
+            GuestUsers guestUsers;
+            try
+            {
+                guestUsers = await getTenantGuestUsers(azureTokenForHiddenApi);
+            }
+            catch (Exception e)
+            {
+                return View("Error", (new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier, description = "Failed to get guest users", debugData = e }));
+            }
             ViewData["diagnosticsEnabled"] = isDiagnosticsEnabled;
-            ViewData["azureResponse"] = azureSignInEvents;
-            return View(azureSignInEvents);
+            GuestInfoRows reportRows = new GuestInfoRows {};
+            reportRows.items = new List<GuestInfoRow>();
+            foreach (Guest guestUser in guestUsers.items)
+            {
+                azureSignInEvents = await getSignInEvents(azureTokenForHiddenApi, guestUser.objectId, DateTime.Today.AddDays(-29), DateTime.Now);
+                SigninEvent lastSignIn;
+                GuestInfoRow newRow;
+                if (azureSignInEvents.items.Count > 0)
+                {
+                    lastSignIn = azureSignInEvents.items[0]; //get most recent one?
+                    reportRows.items.Add(new GuestInfoRow () { userPrincipalName = guestUser.userPrincipalName, objectId = guestUser.objectId, lastLogin = lastSignIn.createdDateTime, loginSucceeded = lastSignIn.loginSucceeded, application = lastSignIn.appDisplayName });
+                }
+                else
+                {
+                    reportRows.items.Add(new GuestInfoRow () { userPrincipalName = guestUser.userPrincipalName, objectId = guestUser.objectId, lastLogin = null, loginSucceeded = false, application = "none" });
+                }
+
+            }
+            return View(reportRows);
         }
         [HttpGet]
         public async Task<ActionResult> Login()
@@ -33,9 +66,26 @@ namespace AzureConsoleRemoting.Controllers
             return View();
         }
 
-        public async Task<ActionResult> About()
+        private async Task<GuestUsers> getTenantGuestUsers(string azureToken)
         {
-            return View();
+            var req = WebRequest.Create("https://main.iam.ad.ext.azure.com/api/Users?searchText=&top=500&orderByThumbnails=false&maxThumbnailCount=999&filterValue=Guest&state=Guest&adminUnit=");
+            req.ContentType = "application/json";
+            req.Method = "POST";
+            req.Headers["X-Requested-With"] = "XMLHttpRequest";
+            req.Headers["x-ms-client-request-id"] = Guid.NewGuid().ToString();
+            req.Headers["Authorization"] = "Bearer " + azureToken;
+            string postData = "";
+            ASCIIEncoding encoding = new ASCIIEncoding();
+            byte[] byte1 = encoding.GetBytes(postData);
+            Stream newStream = req.GetRequestStream();
+            req.ContentLength = byte1.Length;
+            newStream.Write(byte1, 0, byte1.Length);
+            newStream.Close();
+            WebResponse response = await req.GetResponseAsync().ConfigureAwait(false);
+            var responseReader = new StreamReader(response.GetResponseStream());
+            var responseData = await responseReader.ReadToEndAsync();
+            var data = Newtonsoft.Json.JsonConvert.DeserializeObject<GuestUsers>(responseData);
+            return data;
         }
 
         private async Task<string> getTenantTokenEndpoint(string username)
@@ -72,14 +122,14 @@ namespace AzureConsoleRemoting.Controllers
             }
         }
 
-        private async Task<SignInEvents> getSignInEvents(string azureToken)
+        private async Task<SignInEvents> getSignInEvents(string azureToken, string userId, DateTime startDateTime, DateTime endDateTime)
         {
             var req = WebRequest.Create("https://main.iam.ad.ext.azure.com/api/Reports/SignInEventsV2");
             req.ContentType = "application/json";
             req.Method = "POST";
             req.Headers["X-Requested-With"] = "XMLHttpRequest";
             req.Headers["Authorization"] = "Bearer " + azureToken;
-            string postData = "{\"startDateTime\":\"2018-10-17T22:00:00.000Z\",\"endDateTime\":\"2018-10-25T07:47:02.797Z\"}";
+            string postData = "{\"startDateTime\":\""+ startDateTime+"\",\"endDateTime\":\""+ endDateTime+"\",\"userId\":\""+ userId + "\"}";
             ASCIIEncoding encoding = new ASCIIEncoding();
             byte[] byte1 = encoding.GetBytes(postData);
             Stream newStream = req.GetRequestStream();
@@ -129,7 +179,16 @@ namespace AzureConsoleRemoting.Controllers
             public string country { get; set; }
         }
 
-        public class Item
+        public class ConditionalAccessPolicy
+        {
+            public string id { get; set; }
+            public string displayName { get; set; }
+            public List<object> enforcedAccessControls { get; set; }
+            public List<object> enforcedSessionControls { get; set; }
+            public int result { get; set; }
+        }
+
+        public class SigninEvent
         {
             public string id { get; set; }
             public DateTime createdDateTime { get; set; }
@@ -162,7 +221,7 @@ namespace AzureConsoleRemoting.Controllers
 
         public class SignInEvents
         {
-            public List<Item> items { get; set; }
+            public List<SigninEvent> items { get; set; }
             public string nextLink { get; set; }
         }
 

@@ -1,28 +1,25 @@
-﻿@{
-    ViewData["Title"] = "Results";
-}
-@model AzureConsoleRemoting.Controllers.HomeController.SignInEvents;
+﻿@model AzureConsoleRemoting.Models.GuestInfoRows;
 
-<h2>@ViewData["Title"]</h2>
-
-<p>Token used: @ViewData["azureToken"]</p>
 @if ((bool)ViewData["diagnosticsEnabled"] == true)
 {
-    <p>Azure Diagnostics is enabled, a future release will query the specific settings</p>
+    <p>Azure Diagnostics is enabled, a future release will query the specific settings, for now we'll only look back 30 days</p>
 }
 else
 {
     <p>Azure Diagnostics is not enabled, we can only look back 30 days</p>
 }
-<table>
+<h2>Current guest users in your environment (max 500 shown)</h2>
+<table><tr><td><b>Username</b></td><td><b>GUID</b></td><td><b>LastLoginTime</b></td><td><b>Result</b></td><td><b>Application</b></td></tr>
     @foreach (var item in Model.items)
     {
 
-        <tr>
-            <td>@item.userPrincipalName</td>
-            <td>@item.appDisplayName</td>
-            <td>@item.ipAddress</td>
-        </tr>
+       <tr>
+           <td>@item.userPrincipalName</td>
+           <td>@item.objectId</td>
+           <td>@item.lastLogin</td>
+           <td>@item.loginSucceeded</td>
+           <td>@item.application</td>
+       </tr>
 
     }
 </table>
