@@ -1,0 +1,12 @@
+C:\GitRepos\privateScripts\AzureConsoleRemoting\AzureConsoleRemoting
+--output-path=obj\Any CPU\Release\netcoreapp2.0\
+--application-name=AzureConsoleRemoting
+--content-root=C:\GitRepos\privateScripts\AzureConsoleRemoting\AzureConsoleRemoting
+--file=C:\GitRepos\privateScripts\AzureConsoleRemoting\AzureConsoleRemoting\Views\Home\Contact.cshtml
+--file=C:\GitRepos\privateScripts\AzureConsoleRemoting\AzureConsoleRemoting\Views\Home\Login.cshtml
+--file=C:\GitRepos\privateScripts\AzureConsoleRemoting\AzureConsoleRemoting\Views\Home\ProcessLogin.cshtml
+--file=C:\GitRepos\privateScripts\AzureConsoleRemoting\AzureConsoleRemoting\Views\Shared\Error.cshtml
+--file=C:\GitRepos\privateScripts\AzureConsoleRemoting\AzureConsoleRemoting\Views\Shared\_Layout.cshtml
+--file=C:\GitRepos\privateScripts\AzureConsoleRemoting\AzureConsoleRemoting\Views\Shared\_ValidationScriptsPartial.cshtml
+--file=C:\GitRepos\privateScripts\AzureConsoleRemoting\AzureConsoleRemoting\Views\_ViewImports.cshtml
+--file=C:\GitRepos\privateScripts\AzureConsoleRemoting\AzureConsoleRemoting\Views\_ViewStart.cshtml

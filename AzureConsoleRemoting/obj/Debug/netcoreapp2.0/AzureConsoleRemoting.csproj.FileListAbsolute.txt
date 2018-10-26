@@ -9,3 +9,15 @@ C:\Users\jos.lieben\source\repos\AzureConsoleRemoting\AzureConsoleRemoting\obj\D
 C:\Users\jos.lieben\source\repos\AzureConsoleRemoting\AzureConsoleRemoting\obj\Debug\netcoreapp2.0\AzureConsoleRemoting.AssemblyInfo.cs
 C:\Users\jos.lieben\source\repos\AzureConsoleRemoting\AzureConsoleRemoting\obj\Debug\netcoreapp2.0\AzureConsoleRemoting.dll
 C:\Users\jos.lieben\source\repos\AzureConsoleRemoting\AzureConsoleRemoting\obj\Debug\netcoreapp2.0\AzureConsoleRemoting.pdb
+C:\GitRepos\privateScripts\AzureConsoleRemoting\AzureConsoleRemoting\obj\Debug\netcoreapp2.0\AzureConsoleRemoting.dll
+C:\GitRepos\privateScripts\AzureConsoleRemoting\AzureConsoleRemoting\obj\Debug\netcoreapp2.0\AzureConsoleRemoting.pdb
+C:\GitRepos\privateScripts\AzureConsoleRemoting\AzureConsoleRemoting\bin\Debug\netcoreapp2.0\AzureConsoleRemoting.deps.json
+C:\GitRepos\privateScripts\AzureConsoleRemoting\AzureConsoleRemoting\bin\Debug\netcoreapp2.0\AzureConsoleRemoting.runtimeconfig.json
+C:\GitRepos\privateScripts\AzureConsoleRemoting\AzureConsoleRemoting\bin\Debug\netcoreapp2.0\AzureConsoleRemoting.runtimeconfig.dev.json
+C:\GitRepos\privateScripts\AzureConsoleRemoting\AzureConsoleRemoting\bin\Debug\netcoreapp2.0\AzureConsoleRemoting.dll
+C:\GitRepos\privateScripts\AzureConsoleRemoting\AzureConsoleRemoting\bin\Debug\netcoreapp2.0\AzureConsoleRemoting.pdb
+C:\GitRepos\privateScripts\AzureConsoleRemoting\AzureConsoleRemoting\obj\Debug\netcoreapp2.0\AzureConsoleRemoting.csprojAssemblyReference.cache
+C:\GitRepos\privateScripts\AzureConsoleRemoting\AzureConsoleRemoting\obj\Debug\netcoreapp2.0\AzureConsoleRemoting.csproj.CoreCompileInputs.cache
+C:\GitRepos\privateScripts\AzureConsoleRemoting\AzureConsoleRemoting\obj\Debug\netcoreapp2.0\AzureConsoleRemoting.AssemblyInfoInputs.cache
+C:\GitRepos\privateScripts\AzureConsoleRemoting\AzureConsoleRemoting\obj\Debug\netcoreapp2.0\AzureConsoleRemoting.AssemblyInfo.cs
+C:\GitRepos\privateScripts\AzureConsoleRemoting\AzureConsoleRemoting\obj\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs
